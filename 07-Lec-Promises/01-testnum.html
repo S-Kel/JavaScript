@@ -1,0 +1,18 @@
+<script>
+    function testNum(number) {
+        return new Promise((resolve, reject) => {
+            if (number < 10) resolve(number);
+            else reject("Number is too Big!");
+        });
+    }
+
+    // Run testnumber function 
+    let numbers = [5, 10, 1, -1, 20, 30, -50];
+    for (num of numbers) {
+        testNum(num).then((result) => {
+            console.log(result);
+        }).catch((error) => {
+            console.log('Promise rejected: ' + error);
+        });
+    }
+</script>

@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset=“utf-8”>
+    <title>Video Watcher</title>
+
+
+    <body>
+
+        <div class="container”>
+
+    <div class=" row”>
+            <div class="span12">
+                <h2 class=“page-header”>Best Videos Ever :heart:</h1>
+            </div>
+        </div>
+
+        <div class=“row”>
+            <div class=“span3”>
+                <ul>
+                    <li><a href=“https://www.youtube.com/watch?v=TddFnTB_7IM“>Trip through the 80s</a> </li>
+                    <li><a href=“https://www.youtube.com/watch?v=epUk3T2Kfno”>Otters
+              Holding Hands</a> </li>
+                    <li><a href=“https://www.youtube.com/watch?v=il2IrgFHfsg”>The Ooooh Cat</a> </li>
+                </ul>
+            </div>
+        </div>
+        </div>
+        <script src=“youtube.js”></script>
+        <script src=“https://code.jquery.com/jquery-3.3.1.min.js”>
+        </script>
+</head>
+<script>
+    let videoLinks = document.querySelectorAll('a');
+    for (let i = 0; i < videoLinks.length; i++) {
+        let videoLink = videoLinks[i];
+        let linkUrl = videoLink.getAttribute('href');
+        let thumbnailUrl = youtube.generateThumbnailUrl(linkUrl);
+        let thumbnailImg = document.createElement('img');
+        thumbnailImg.setAttribute('src', thumbnailUrl);
+        videoLink.appendChild(thumbnailImg);
+    }
+
+
+    /*   let videoLinks = $(‘a’);
+      for (let link of videoLinks) {
+          let videoLink = $(link)
+          let linkUrl = videoLink.attr(‘href’)
+          let thumbnailUrl = youtube.generateThumbnailUrl(linkUrl)
+          let thumbnailImg = $(‘<img>’)
+          thumbnailImg.attr(‘src’, thumbnailUrl)
+          videoLink.append(thumbnailImg)
+      }  */
+</script>
+</body>
+
+</html>

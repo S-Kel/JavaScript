@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>My Book List</title>
+</head>
+
+<body>
+    <script>
+        var books = [{
+            title: 'The Design of EveryDay Things',
+            author: 'Don Norman',
+            alreadyRead: false
+        }, {
+            title: 'The Most Human Human',
+            author: 'Brian Christian',
+            alreadyRead: true
+        }];
+
+        /*Iterate through the array of books. For each book, create:
+          - a p element with the book title and author and 
+          - append it to the page.
+        */
+
+        for (book of books) {
+            let newParagraph = document.createElement('p');
+            let newText = document.createTextNode(`${book.title} by ${book.author}`);
+
+            newParagraph.appendChild(newText);
+            document.body.appendChild(newParagraph);
+        }
+    </script>
+</body>
+
+</html>

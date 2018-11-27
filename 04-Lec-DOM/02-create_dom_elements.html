@@ -1,0 +1,39 @@
+<!-- CREATING DOM NODES 
+    The document object also allows us to create new nodes from scratch.
+
+    We use the appendChild method to attach a new node in the desired location in the DOM tree.
+
+    document.createElement(tagName)
+    document.createTextNode(text)
+    document.appendChild(childToAppend)
+-->
+
+<script>
+    let hobbies = ["Playing the Banjo", "Paddleboard", "Gaming"];
+</script>
+
+<ul class="" id="hobby-list"></ul>
+
+<script>
+    let ul = document.querySelector('ul');
+    for (hobby of hobbies)
+        ul.innerHTML += `<li class='hobby'>${hobby}</li>`;
+</script>
+
+<!-- CHANGING DOM ELEMENT 
+    Whenever the DOM is changed, the browser immediately updates the visible   page to display the changes.
+    let body = document.body 
+-->
+<script>
+    let body = document.body;
+    let newImg = document.createElement('img');
+    newImg.src = 'http://placekitten.com/400/300';
+    newImg.style.border = '1px solid black';
+    body.appendChild(newImg);
+
+    // Child nodes can have their own children, thus creating a hierarchy.
+    let newParagraph = document.createElement('p');
+    let newText = document.createTextNode('Squee!');
+    newParagraph.appendChild(newText);
+    body.appendChild(newParagraph);
+</script>

@@ -1,0 +1,78 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <style>
+        .table {
+            border-radius: 5px;
+            width: 75%;
+            margin: 0px auto;
+            float: none;
+        }
+        
+        .table th {
+            background: #fafafa;
+        }
+        
+        .table th,
+        .table td {
+            text-align: center;
+            background: #fafaf3;
+        }
+    </style>
+</head>
+
+<script>
+    fetch('json.json')
+        .then(
+            (res) => User.createUser(res.json()),
+            (error) => console.error('Unable to fetch!')
+        )
+        .then((json) => console.log(json));
+
+    const User = {
+        createUser: function(json) {
+            let table =
+                `<div class="container pt-5">
+                    <table class="table text-centered" id="table">
+                        <thead class="bg-light">
+                            <tr id="table-header"></tr>
+                        </thead>
+                        <tbody id="table-body"></tbody>
+                    </table>
+                </div>`;
+
+            // Append table to document
+            document.body.innerHTML += table;
+
+            const tableHeader = document.getElementById('table-header');
+            const tableBody = document.getElementById('table-body');
+
+            json.then((users) => {
+                for (let user in users) {
+                    // Append Table header
+                    for (let key of Object.keys(users[user])) {
+                        if (user < 1)
+                            tableHeader.innerHTML += `<th scope="row">${key}</th>`;
+                    }
+
+                    //Append table body
+                    tableBody.innerHTML +=
+                        `<td>${users[user].name}</td>
+                         <td>${users[user].age}</td>
+                         <td>${users[user].married}</td>`;
+                }
+            });
+
+        }
+    }
+
+    // users.forEach((value, keys) => {
+    // for (key of Object.keys(value))
+    // if (keys < 1) // console.log(key); // });
+</script>

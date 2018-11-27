@@ -1,0 +1,179 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Video Watcher</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div id="thumbnails"></div>
+            </div>
+            <div class="col-md-6">
+                <div id="video"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span12">
+                <h2 class="page-header">Best Videos Ever :heart:</h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="span3">
+                <ul class="col-12">
+                    <li class="col-4 "><a href="https://www.youtube.com/watch?v=NfkULtxbO3I">Trip through the 80s</a></li>
+                    <li class="col-4"><a href="https://www.youtube.com/watch?v=epUk3T2Kfno">Otters Holding Hands</a></li>
+                    <li class="col-4"><a href="https://www.youtube.com/watch?v=il2IrgFHfsg">The Ooooh Cat</a></li>
+                </ul>
+            </div>
+            <div class="span9" id="video-watcher">
+            </div>
+        </div>
+    </div>
+
+
+    <script type="text/javascript" src="youtube.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+    <script>
+        // var links = $('a');
+        // for (link of links) {
+        //     let $link = $(link);
+        //     let $currentHref = $link.attr('href');
+        //     let $thumbnailUrl = youtube.generateThumbnailUrl($currentHref);
+        //     let $img = $('<img>')
+        //     let $p = $img.attr('src', $thumbnailUrl);
+        //     $link.append($p)
+
+        //     var img = $('<img>')
+
+        //     var p = img.attr('href', link)
+        //     // $('#video').append($p);
+        // }
+
+
+        //   var links1 = document.querySelectorAll('a');
+        //   console.log(links1)
+        //   for (var i=0 ; i< links1.length ; i++)
+        //    {
+        //    var link = links1[i];
+        //    var youtubeUrl = link.getAttribute('href');
+        //    var thumbnailUrl = youtube.generateThumbnailUrl(youtubeUrl);
+        //    var img1 = document.createElement('img') ;
+        //    img1.setAttribute('src',thumbnailUrl);
+        //    link.appendChild(img1);
+
+
+        // var links = $('a');
+        // console.log
+        // for (link of links) {
+        //     let $link = $(link);
+        //     let $currentHref = $link.attr('href');
+        //     let $videoUrl = youtube.generateEmbedUrl($currentHref);
+        //     let $iframe = $('<iframe>') //'img'
+        //     let $p = $iframe.attr('src', $videoUrl);
+        //     $iframe.attr({
+        //         width: "560",
+        //         height: "315",
+        //         frameborder: "0",
+        //         allow: "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+        //     });
+        //     // $link.append($p)
+
+        //     var videoSrc = $('<iframe>');
+        //     var p = videoSrc.attr('href', link);
+        //     $('#video').append($p);
+
+        //     $p.on('click', function (e) {
+        //         e.preventDefault();
+
+        //         console.log(e.currentTarget);
+        //         console.log($thumbnailUrl);
+
+        //     });
+        // }
+    </script>
+    <script>
+        function thumbnailifys(videoLink) {
+            let linkUrl = videoLink.attr('href')
+            let thumbnailUrl = youtube.generateThumbnailUrl(linkUrl)
+            let thumbnailImg = $('<img>')
+            thumbnailImg.attr('src', thumbnailUrl)
+            videoLink.append(thumbnailImg)
+
+            videoLink.on('click', function(e) {
+                e.preventDefault()
+                let videoEmbed = $('<iframe></iframe>')
+                videoEmbed.attr('src', youtube.generateEmbedUrl(linkUrl))
+                videoEmbed.attr('width', 560)
+                videoEmbed.attr('height', 315)
+                let videoWatcher = $('#video-watcher')
+                videoWatcher.hide()
+                videoWatcher.html(videoEmbed)
+                videoWatcher.fadeIn()
+            })
+        }
+
+        for (let link of $('a')) {
+            thumbnailifys($(link))
+        }
+    </script>
+
+    <script>
+        const thumbnailify = function(videoLink) {
+            //Get an href
+            var urlLink = videoLink.attr('href');
+
+            // Get video Url
+            var thumnailUrl = youtube.generateThumbnailUrl(urlLink);
+
+            // Create an 'iframe> tag
+            var thumbnailImg = $('<img>');
+
+            // Set the iframe src to video Url
+            thumbnailImg.attr('src', thumnailUrl);
+            thumbnailImg.css('cursor', 'pointer');
+            thumbnailImg.addClass('p-3');
+
+            // Append iframe to video tag
+            // videoLink.append(thumbnailImg);
+            $('#thumbnails').append(thumbnailImg);
+
+
+            // Play video when clicked
+            thumbnailImg.on('click', function(e) {
+                e.preventDefault();
+                var embededVideo = $('<iframe></iframe>');
+                embededVideo.attr('src', youtube.generateEmbedUrl(urlLink));
+                embededVideo.attr({
+                    width: "560",
+                    height: "315"
+                });
+
+                var video = $('#video');
+                video.hide();
+                video.fadeOut(1000);
+                video.html(embededVideo);
+                video.fadeIn(1000);
+            });
+
+        }
+
+        const links = $('a');
+
+        for (let link of links) {
+            thumbnailify($(link));
+        }
+    </script>
+</body>
+
+</html>

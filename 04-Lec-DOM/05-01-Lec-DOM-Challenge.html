@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>My Book List</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <div class="container">
+
+    </div>
+    <script>
+        var books = [{
+            title: 'The Design of EveryDay Things',
+            author: 'Don Norman',
+            alreadyRead: false
+        }, {
+            title: 'The Most Human Human',
+            author: 'Brian Christian',
+            alreadyRead: true
+        }];
+
+        /*Iterate through the array of books. For each book, create:
+          - a p element with the book title and author and 
+          - append it to the page.
+        Bonuses:
+            Use a ul and li to display the books.
+            Add an img to each book that links to a URL of the book cover.
+            Change the style of the book depending on whether you have read it or not.
+        */
+        let container = document.querySelector('.container');
+        let ul = document.createElement('ul');
+        let imageNumber = 0;
+
+
+        for (book of books) {
+            let list = document.createElement('li');
+            let newImg = document.createElement('img');
+            let newText = document.createTextNode(`${book.title} by ${book.author}`);
+            if (book.alreadyRead) {
+                list.style = "background: green;"
+            }
+
+            newImg.src = 'https://source.unsplash.com/random/400x' + (200 + imageNumber);
+            newImg.style = 'border: 1px solid black; display:block;';
+            list.appendChild(newText);
+            list.appendChild(newImg);
+            ul.appendChild(list);
+            imageNumber++;
+        }
+        container.appendChild(ul);
+    </script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

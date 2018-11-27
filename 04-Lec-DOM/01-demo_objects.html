@@ -1,0 +1,28 @@
+<!-- 
+  1. Navigate to the UCSD website, and open up the Dev Tools console
+  2. Find the UCSD logo and store it in a variable.
+  3. Modify the source of the logo's image so that the image now points to the    UC Berkeley logo instead.
+  4. Find the header and store it in a variable.
+  5. Change the header background color to 'gold'.
+  6. Find the 'About' menu link and store it in a variable.
+  7. Modify the text of the link so that it says "About Cal" instead.
+  8. Modify the link so that it points to Cal's About page instead. 
+-->
+
+<script>
+    // Get alt tag
+    let alt = document.querySelectorAll('[alt="Brand"]');
+
+    // get the logo 
+    var logo = alt[0];
+    logo.src = "https://www.berkeley.edu/images/uploads/logo-ucberkeley.png";
+
+    // Select header wrap and set it gold color
+    let header = document.querySelector('.header-wrap');
+    header.style = "background: gold";
+
+    // Find the 'About' menu link and store it in a variable.
+    let about = document.querySelectorAll('.main-nav ul')[0].firstElementChild.firstChild;
+    about.text = "About Calc";
+    about.href = "https://www.berkeley.edu/about";
+</script>

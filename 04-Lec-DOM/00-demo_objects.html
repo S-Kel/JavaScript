@@ -1,0 +1,11 @@
+<script>
+    let hobbies = ["Playing the Banjo", "Paddleboard", "Gaming"];
+</script>
+
+<ul class="" id="hobby-list"></ul>
+
+<script>
+    let ul = document.querySelector('ul');
+    for (hobby of hobbies)
+        ul.innerHTML += `<li class='hobby'>${hobby}</li>`;
+</script>

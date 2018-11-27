@@ -1,0 +1,19 @@
+<form id="new-article" onsubmit="postArticle()">
+    <input name="title">
+    <textarea name="content"></textarea>
+</form>
+
+<script>
+    function postArticle() {
+        event.preventDefault()
+
+        fetch('/articles/create', {
+            method: 'post',
+            body: new FormData(this)
+        }).then(function(response) {
+            return response.json();
+        }).then(function(data) {
+            console.log('Created article:', data);
+        });
+    }
+</script>

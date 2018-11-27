@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>My Book List</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+</head>
+
+<body style="background: #343A40">
+    <div class="container">
+        <nav class="navbar navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">My Book List</a>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link text-white" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                </ul>
+            </div>
+            <!-- Navbar content -->
+        </nav>
+    </div>
+
+    <div class="container">
+
+    </div>
+    <script>
+        var books = [{
+            title: 'The Design of EveryDay Things',
+            author: 'Don Norman',
+            source: 'https://images-fe.ssl-images-amazon.com/images/I/51abYDMFl2L._SY346_.jpg',
+            alreadyRead: false
+        }, {
+            title: 'The Most Human Human',
+            author: 'Brian Christian',
+            source: 'https://images-fe.ssl-images-amazon.com/images/I/51G5J9%2BD%2BBL._SY346_.jpg',
+            alreadyRead: true
+        }, {
+            title: 'The Lost Book Naraket',
+            author: 'Pharoah Akhetenaten',
+            source: 'https://images-fe.ssl-images-amazon.com/images/I/51mvbfU8G2L._SY346_.jpg',
+            alreadyRead: false
+        }, {
+            title: 'The Great Builders of Pyramid of Kufu',
+            author: 'Pharoah Imotep',
+            source: 'https://images-fe.ssl-images-amazon.com/images/I/51x2yyTS43L._SY346_.jpg',
+            alreadyRead: false
+        }];
+
+        /*Iterate through the array of books. For each book, create:
+          - a p element with the book title and author and 
+          - append it to the page.
+        Bonuses:
+            Use a ul and li to display the books.
+            Add an img to each book that links to a URL of the book cover.
+            Change the style of the book depending on whether you have read it or not.
+        */
+        let container = document.querySelector('.container');
+        let content = document.createElement('div');
+        content.className = "row";
+        let imageNumber = 0;
+
+
+        for (book of books) {
+            let column = document.createElement('div'),
+                card = document.createElement('div'),
+                cardBody = document.createElement('div'),
+                cardText = document.createElement('div');
+
+            column.className = "col-md-3 col-sm-12";
+            card.className = 'card mb-3';
+            cardBody.className = 'card-body';
+            cardText.className = 'card-text text-muted';
+
+            let newImg = document.createElement('img');
+            newImg.src = book.source;
+            newImg.className = 'card-img-top img-fluid images';
+
+            let para = document.createElement('p');
+
+            let bookTitle = document.createTextNode(`${book.title} `);
+            let bookAuthor = document.createTextNode(`by ${book.author}`);
+            cardText.className = "card-text";
+
+            para.appendChild(bookTitle);
+            cardText.appendChild(bookAuthor);
+
+            para.className = "lead";
+
+            if (book.alreadyRead)
+                cardText.style = "color: green;";
+            else
+                cardText.style = "color: red;"
+
+            // newImg.src = 'https://source.unsplash.com/random/400x' + (200 + imageNumber);
+            newImg.style = 'border: 1px solid black; display:block;';
+            // para.appendChild(newText);
+            card.appendChild(newImg);
+            cardBody.appendChild(para);
+            cardBody.appendChild(cardText);
+            card.appendChild(cardBody);
+            column.appendChild(card);
+            content.appendChild(column);
+            imageNumber++;
+        }
+        container.appendChild(content);
+    </script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

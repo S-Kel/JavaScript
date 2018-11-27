@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+</head>
+
+<body>
+
+    <script>
+        const APPID = "a2093eaf549745e40a98a3927fd34c47";
+        const url = `http://api.openweathermap.org/data/2.5/forecast?q=Brisbane,au&units=metric&appid=${APPID}`;
+
+        fetch(url).then(
+                (res) => res,
+                (error) => console.error('Unable to fetch!')
+            )
+            .then((json) => Weather.createWeatherTable(json.json()));
+
+
+        const Weather = {
+            createWeatherTable: function(json) {
+                document.body.innerHTML += this.createCard();
+
+
+                const cardTitle = document.getElementById('card-title');
+                const maxTemp = document.getElementById('max-temp');
+
+                json.then(weathers => {
+                    let header = `<h5 class="display-3">${weathers.city.name} Weather<h5>`;
+
+                    cardTitle.innerHTML += header;
+                    let tempsArray = this.processData(weathers);
+
+                    console.log(tempsArray[0][0]);
+                    maxTemp.innerHTML += `<h3 class="display-3">${tempsArray[0][0]}&deg;</h3>`;
+                    maxTemp.innerHTML += `<small class="display-5">Min ${tempsArray[0][1]}&deg;</small><br>`;
+                    // document.body.innerHTML += `<h3>${tempsArray[0][0]}Hi there<h3>`
+                    console.log(tempsArray);
+
+                });
+            },
+            createCard: function() {
+                const card =
+                    `<div class="container">
+                      <div class="card card-inverse card-primary p-3 text-center">
+                        <blockquote class="card-blockquote" id="card-title">                          
+                        </blockquote>
+                      <footer>
+                        <div id="max-temp"></div>
+                      </footer>
+                      </div>
+                    </div>`;
+                return card;
+            },
+            processData: function(weatherList) {
+                let temp = [];
+                let temp_min = [];
+                let temp_max = [];
+
+                for (let weather of weatherList.list) {
+                    // console.log(weather);
+                    temp.push(weather.main.temp);
+                    temp_min.push(weather.main.temp_min);
+                    temp_max.push(weather.main.temp_max);
+                }
+                // console.log(temp);
+                let currTempAvg = this.average(temp).toFixed(2);
+                let minTempAvg = this.average(temp_min).toFixed(2);
+                let maxTempAvg = this.average(temp_max).toFixed(2);
+
+                // console.log(currTempAvg);
+                // console.log(minTempAvg);
+                // console.log(maxTempAvg);
+
+
+                let temps = [];
+                temps.push([currTempAvg, minTempAvg, maxTempAvg]);
+                // temps.push(minTempAvg)
+                // temps.push(maxTempAvg);
+                // console.log(temps);
+                return temps;
+                // weatherList.forEach((value, keys) => {
+                //     console.log(value.main);
+                //     for (let val of value.main) {
+                //         console.log(val);
+                //     }
+                // })
+            },
+            average: function(values) {
+                let sum = values.reduce((previous, current) => current += previous);
+                let avg = sum / values.length;
+                return avg;
+            }
+        }
+    </script>
+</body>
+
+</html>

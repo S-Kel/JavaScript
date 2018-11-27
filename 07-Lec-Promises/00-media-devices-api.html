@@ -1,0 +1,19 @@
+<script>
+    const body = document.body;
+    // navigator.mediaDevices.enumerateDevices()
+    //     .then(function(results) {
+    //         console.log(results);
+    //         results.forEach(function(value, key) {
+
+    //             console.log(value);
+    //         });
+
+    //     });
+    // console.log(res);
+    // console.log(res.map(device => device.deviceId));
+
+    navigator.mediaDevices.enumerateDevices()
+        .then((res) => {
+            console.log(res.map((device) => `${device.kind} ${device.label}`));
+        });
+</script>
